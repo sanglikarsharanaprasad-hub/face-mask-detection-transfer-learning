@@ -114,3 +114,10 @@ Camera images are processed on your device.
 ## Deployment documentation
 
 See the [MaskLab Deployment Guide](docs/DEPLOYMENT.md) for local setup, hosting requirements, camera permissions and troubleshooting.
+
+## Presentation and deployment checks
+
+- [Presentation and viva guide](docs/PRESENTATION.md)
+- [Deployment guide and checker usage](docs/DEPLOYMENT.md)
+
+Before hosting, run: `python3 src/check_web_deployment.py`
