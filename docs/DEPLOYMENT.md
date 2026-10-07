@@ -133,3 +133,35 @@ http://localhost:8000.
 
 These were manual functional checks, not an accuracy benchmark.
 Vercel deployment remains unverified.
+
+## Automated static asset checker
+
+Run from the repository root:
+
+```bash
+python3 src/check_web_deployment.py
+```
+
+The checker uses only the Python standard library. It checks:
+- Required HTML, CSS, JavaScript, favicon and vendor files.
+- Model JSON structure and declared weight files.
+- Missing, empty or unreadable files.
+- Git LFS pointers that were not replaced with actual content.
+- Weight paths that leave the website directory.
+
+To check another website directory:
+
+```bash
+python3 src/check_web_deployment.py --web-root /path/to/web
+```
+
+Exit code 0 means static asset checks passed.
+Exit code 1 means a problem was found.
+
+Verified on macOS on 7 October 2026:
+- The repository website passed with 12 nonempty files.
+- A nonexistent website directory failed with exit code 1.
+
+These checks do not validate model weight contents, camera access,
+prediction accuracy or a public deployment. Browser testing is
+still required.
