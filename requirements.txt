@@ -1,7 +1,8 @@
-tensorflow
-opencv-python
+tensorflow==2.21.0
+opencv-python==4.11.0.86
 numpy
 matplotlib
 scikit-learn
 pillow
 seaborn
+Flask>=3.0,<4.0
