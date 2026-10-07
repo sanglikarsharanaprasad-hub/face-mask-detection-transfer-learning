@@ -1,28 +1,29 @@
 # Face Mask Detection Using Transfer Learning
 
-A simple computer vision project that uses **MobileNetV2 transfer learning** to classify images as **Mask** or **No Mask** and performs real-time prediction using a webcam.
+A simple computer vision project that uses **MobileNetV2 Transfer Learning** to classify images as **Mask** or **No Mask** and performs real-time prediction using a webcam.
 
 ## Project Overview
 
 This project demonstrates how a pretrained deep learning model can be adapted for a specific image-classification task.
 
-Instead of training a neural network from scratch, we use **MobileNetV2 pretrained on ImageNet** and add a small classification layer for two classes:
+Instead of training a neural network from scratch, we use **MobileNetV2 pretrained on ImageNet** and add a classification layer for two classes:
 
-* Mask
-* No Mask
+- Mask
+- No Mask
 
 The trained model is then integrated with **OpenCV** for real-time webcam prediction.
 
 ## Technologies Used
 
-* Python
-* TensorFlow / Keras
-* MobileNetV2
-* OpenCV
-* NumPy
-* Matplotlib
-* Scikit-learn
-* Google Colab
+- Python
+- TensorFlow / Keras
+- MobileNetV2
+- OpenCV
+- NumPy
+- Matplotlib
+- Scikit-learn
+- Pandas
+- Google Colab
 
 ## Project Workflow
 
@@ -66,6 +67,7 @@ face-mask-detection/
 │   └── training.ipynb
 │
 ├── models/
+│   └── README.md
 │
 ├── results/
 │   ├── accuracy.png
@@ -79,9 +81,9 @@ face-mask-detection/
 
 ## Dataset
 
-The dataset is obtained from Kaggle.
+The dataset is obtained from **Kaggle**.
 
-The original dataset is **not included in this GitHub repository** because of file size and dataset licensing considerations.
+The original dataset is not included in this GitHub repository because of file size and dataset licensing considerations.
 
 Download the dataset from the Kaggle source provided in:
 
@@ -120,37 +122,76 @@ Dense Layer
 Mask / No Mask
 ```
 
-Transfer learning allows us to obtain useful image features from a pretrained model without training a deep neural network completely from scratch.
+Transfer learning allows us to use useful image features learned from a large dataset without training a deep neural network completely from scratch.
 
 ## Training
 
 The dataset is divided approximately into:
 
-* 80% Training
-* 20% Validation
+- 80% Training
+- 20% Validation
 
-The images are resized to `224 × 224` during the TensorFlow preprocessing pipeline.
+The images are resized to:
 
-Simple data augmentation is used to improve generalization.
+```text
+224 × 224
+```
+
+during the TensorFlow preprocessing pipeline.
+
+Data augmentation is used to improve model generalization.
+
+Typical augmentation techniques include:
+
+- Horizontal flipping
+- Small rotations
+- Zooming
+- Image shifting
+
+## Model Training Process
+
+The training process consists of the following steps:
+
+1. Load the dataset.
+2. Clean and organize the images.
+3. Preprocess the images.
+4. Resize images to `224 × 224`.
+5. Load the pretrained MobileNetV2 model.
+6. Freeze the initial MobileNetV2 layers.
+7. Add classification layers.
+8. Compile the model.
+9. Train the model using the training dataset.
+10. Validate the model using the validation dataset.
+11. Save the trained model.
 
 ## Evaluation
 
 The model is evaluated using:
 
-* Validation accuracy
-* Training accuracy
-* Validation loss
-* Training loss
-* Confusion matrix
-* Precision
-* Recall
-* F1-score
+- Training accuracy
+- Validation accuracy
+- Training loss
+- Validation loss
+- Confusion matrix
+- Precision
+- Recall
+- F1-score
 
 The generated graphs and evaluation results are stored in the `results/` directory.
 
+Example evaluation output:
+
+```text
+Accuracy
+Precision
+Recall
+F1-Score
+Confusion Matrix
+```
+
 ## Real-Time Webcam Demo
 
-After training, the saved model is connected to OpenCV.
+After training, the saved model is connected to **OpenCV**.
 
 The webcam captures frames and the model predicts:
 
@@ -166,61 +207,137 @@ NO MASK
 
 along with the prediction confidence.
 
+Example:
+
+```text
+MASK - 96.45%
+```
+
+or:
+
+```text
+NO MASK - 91.23%
+```
+
 Press **Q** to close the webcam window.
 
 ## Installation
 
-Install the required Python packages:
+### 1. Clone the Repository
+
+Replace the repository URL with your actual GitHub repository URL.
+
+```bash
+git clone <your-github-repository-url>
+```
+
+### 2. Open the Project Directory
+
+```bash
+cd face-mask-detection
+```
+
+### 3. Install Required Packages
 
 ```bash
 pip install -r requirements.txt
 ```
 
+## Requirements
+
+The main Python libraries required for this project are:
+
+```text
+tensorflow
+opencv-python
+numpy
+matplotlib
+scikit-learn
+pandas
+```
+
+You can install them manually using:
+
+```bash
+pip install tensorflow opencv-python numpy matplotlib scikit-learn pandas
+```
+
 ## Running the Project
 
-### 1. Prepare the dataset
+### 1. Prepare the Dataset
+
+First download and organize the Kaggle dataset according to the structure described in:
+
+```text
+dataset/README.md
+```
+
+Then run:
 
 ```bash
 python src/preprocess.py
 ```
 
-### 2. Train the model
+### 2. Train the Model
 
-Training can be performed using Google Colab or locally if suitable hardware is available.
+Training can be performed using **Google Colab** with GPU acceleration or locally if suitable hardware is available.
 
-### 3. Evaluate the model
+Run:
+
+```bash
+python src/train.py
+```
+
+After training, the trained model will be saved in the `models/` directory.
+
+### 3. Evaluate the Model
+
+Run:
 
 ```bash
 python src/evaluate.py
 ```
 
-### 4. Run the webcam demo
+This generates evaluation results such as:
+
+```text
+results/accuracy.png
+results/loss.png
+results/confusion_matrix.png
+```
+
+### 4. Run the Webcam Demo
+
+After the model has been trained and saved, run:
 
 ```bash
 python src/webcam.py
 ```
 
-## Team Contributions
+The webcam will open and detect whether the person is wearing a mask.
 
-| Member   | Contribution                                      |
-| -------- | ------------------------------------------------- |
-| Member 1 | Dataset collection, cleaning and preprocessing    |
-| Member 2 | MobileNetV2 model development and training        |
-| Member 3 | Model evaluation, graphs and performance analysis |
-| Member 4 | OpenCV real-time webcam integration               |
+Press:
 
-## Future Improvements
+```text
+Q
+```
 
-Possible future improvements include:
+to exit the webcam window.
 
-* Face detection before classification
-* Detection of multiple faces
-* Improved dataset diversity
-* Real-time bounding boxes
-* Mobile or web deployment
-* Improved performance under different lighting conditions
+## Google Colab
 
-## Disclaimer
+Google Colab can be used for model training because it provides access to GPU resources.
 
-This project is developed for educational and demonstration purposes.
+Recommended workflow:
 
+```text
+Upload / Connect Dataset
+        ↓
+Install Dependencies
+        ↓
+Preprocess Dataset
+        ↓
+Load MobileNetV2
+        ↓
+Train Model
+        ↓
