@@ -6,7 +6,7 @@ A simple computer vision project that uses **MobileNetV2 Transfer Learning** to 
 
 This project demonstrates how a pretrained deep learning model can be adapted for a specific image-classification task.
 
-Instead of training a neural network from scratch, we use **MobileNetV2 pretrained on ImageNet** and add a small classification layer for two classes:
+Instead of training a neural network from scratch, we use **MobileNetV2 pretrained on ImageNet** and add a classification layer for two classes:
 
 - Mask
 - No Mask
@@ -22,6 +22,7 @@ The trained model is then integrated with **OpenCV** for real-time webcam predic
 - NumPy
 - Matplotlib
 - Scikit-learn
+- Pandas
 - Google Colab
 
 ## Project Workflow
@@ -66,7 +67,7 @@ face-mask-detection/
 │   └── training.ipynb
 │
 ├── models/
-│   └── mask_detector.keras
+│   └── README.md
 │
 ├── results/
 │   ├── accuracy.png
@@ -121,7 +122,7 @@ Dense Layer
 Mask / No Mask
 ```
 
-Transfer learning allows us to obtain useful image features from a pretrained model without training a deep neural network completely from scratch.
+Transfer learning allows us to use useful image features learned from a large dataset without training a deep neural network completely from scratch.
 
 ## Training
 
@@ -138,7 +139,7 @@ The images are resized to:
 
 during the TensorFlow preprocessing pipeline.
 
-Simple data augmentation is used to improve model generalization.
+Data augmentation is used to improve model generalization.
 
 Typical augmentation techniques include:
 
@@ -152,15 +153,16 @@ Typical augmentation techniques include:
 The training process consists of the following steps:
 
 1. Load the dataset.
-2. Preprocess the images.
-3. Resize images to `224 × 224`.
-4. Load the pretrained MobileNetV2 model.
-5. Freeze the initial MobileNetV2 layers.
-6. Add classification layers.
-7. Compile the model.
-8. Train the model using the training dataset.
-9. Validate the model using the validation dataset.
-10. Save the trained model.
+2. Clean and organize the images.
+3. Preprocess the images.
+4. Resize images to `224 × 224`.
+5. Load the pretrained MobileNetV2 model.
+6. Freeze the initial MobileNetV2 layers.
+7. Add classification layers.
+8. Compile the model.
+9. Train the model using the training dataset.
+10. Validate the model using the validation dataset.
+11. Save the trained model.
 
 ## Evaluation
 
@@ -211,7 +213,7 @@ Example:
 MASK - 96.45%
 ```
 
-or
+or:
 
 ```text
 NO MASK - 91.23%
@@ -221,19 +223,21 @@ Press **Q** to close the webcam window.
 
 ## Installation
 
-Clone the repository:
+### 1. Clone the Repository
+
+Replace the repository URL with your actual GitHub repository URL.
 
 ```bash
 git clone <your-github-repository-url>
 ```
 
-Move into the project directory:
+### 2. Open the Project Directory
 
 ```bash
 cd face-mask-detection
 ```
 
-Install the required Python packages:
+### 3. Install Required Packages
 
 ```bash
 pip install -r requirements.txt
@@ -252,7 +256,7 @@ scikit-learn
 pandas
 ```
 
-You can install them using:
+You can install them manually using:
 
 ```bash
 pip install tensorflow opencv-python numpy matplotlib scikit-learn pandas
@@ -284,11 +288,7 @@ Run:
 python src/train.py
 ```
 
-After training, the model will be saved inside:
-
-```text
-models/
-```
+After training, the trained model will be saved in the `models/` directory.
 
 ### 3. Evaluate the Model
 
@@ -298,7 +298,7 @@ Run:
 python src/evaluate.py
 ```
 
-This generates:
+This generates evaluation results such as:
 
 ```text
 results/accuracy.png
@@ -341,66 +341,3 @@ Load MobileNetV2
         ↓
 Train Model
         ↓
-Evaluate Model
-        ↓
-Save Model
-        ↓
-Download Model
-        ↓
-Run OpenCV Webcam Locally
-```
-
-## Team Contributions
-
-| Member | Contribution |
-|---|---|
-| Member 1 | Dataset collection, cleaning and preprocessing |
-| Member 2 | MobileNetV2 model development and training |
-| Member 3 | Model evaluation, graphs and performance analysis |
-| Member 4 | OpenCV real-time webcam integration |
-
-## Future Improvements
-
-Possible future improvements include:
-
-- Face detection before classification
-- Detection of multiple faces
-- Real-time bounding boxes
-- Improved dataset diversity
-- Better performance under different lighting conditions
-- Mobile application deployment
-- Web application deployment
-- Edge-device deployment
-- Improved model accuracy
-- Real-time monitoring system
-
-## Applications
-
-This system can be used as a basic foundation for:
-
-- Workplace safety monitoring
-- Industrial safety systems
-- Smart surveillance
-- Public-area monitoring
-- Educational computer vision projects
-- Automated safety compliance systems
-
-## Limitations
-
-The model's performance may be affected by:
-
-- Poor lighting
-- Face angle
-- Low-quality camera input
-- Partially visible faces
-- Different types of masks
-- Unseen environments
-- Dataset limitations
-
-Therefore, the system should be considered an **educational computer vision project** rather than a certified safety system.
-
-## Disclaimer
-
-This project is developed for educational and demonstration purposes.
-
-The predictions depend on the dataset and model performance and should not be treated as a certified safety or security system.
