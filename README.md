@@ -59,13 +59,13 @@ From the repository root, using Python 3.11:
 
 ```powershell
 py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+..venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 ## Train the Model
 
 ```powershell
-.\.venv\Scripts\python.exe src\train.py
+..venv\Scripts\python.exe src\train.py
 ```
 
 Outputs include:
@@ -80,7 +80,7 @@ Outputs include:
 ## OpenCV Webcam Demo
 
 ```powershell
-.\.venv\Scripts\python.exe src\webcam.py
+..venv\Scripts\python.exe src\webcam.py
 ```
 
 Click the webcam window before using these keys:
@@ -91,7 +91,7 @@ Click the webcam window before using these keys:
 ## Run the Website Locally
 
 ```powershell
-.\.venv\Scripts\python.exe -m http.server 8000 --directory web
+..venv\Scripts\python.exe -m http.server 8000 --directory web
 ```
 
 Open http://localhost:8000 in Chrome or Edge.
@@ -111,3 +111,6 @@ Camera images are processed on your device.
 - OpenCV and the browser use different face detectors.
 - Confidence is a model estimate and does not guarantee correctness.
 - This project is an educational demonstration.
+## Deployment documentation
+
+See the [MaskLab Deployment Guide](docs/DEPLOYMENT.md) for local setup, hosting requirements, camera permissions and troubleshooting.
