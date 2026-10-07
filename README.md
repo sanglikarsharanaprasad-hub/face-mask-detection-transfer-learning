@@ -121,3 +121,25 @@ See the [MaskLab Deployment Guide](docs/DEPLOYMENT.md) for local setup, hosting 
 - [Deployment guide and checker usage](docs/DEPLOYMENT.md)
 
 Before hosting, run: `python3 src/check_web_deployment.py`
+## Training Results
+
+The face-mask detection model is trained using transfer learning with
+MobileNetV2 pretrained on ImageNet.
+
+The complete training configuration and recorded results are documented in:
+
+[**Training Documentation →**](docs/TRAINING.md)
+
+### Recorded Performance
+
+- **Epochs:** 5
+- **Best validation accuracy:** 99.01% (Epoch 4)
+- **Saved checkpoint validation accuracy:** 98.94%
+- **Saved checkpoint validation loss:** 0.02800
+
+The model checkpoint is selected using validation loss, so the Epoch 5
+checkpoint is retained because it achieved the lowest validation loss.
+
+The training documentation also contains the dataset information,
+preprocessing configuration, model architecture, per-epoch results,
+reproducibility instructions, and generated output files.
