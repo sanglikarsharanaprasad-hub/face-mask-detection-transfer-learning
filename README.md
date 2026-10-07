@@ -1,225 +1,113 @@
-# Face Mask Detection Using Transfer Learning
+# Face Mask Detection using Transfer Learning
 
-A simple computer vision project that uses **MobileNetV2 transfer learning** to classify images as **Mask** or **No Mask** and performs real-time prediction using a webcam.
+A face mask classification project using a pretrained MobileNetV2 model.
+Includes training, validation plots, an OpenCV webcam demo, and the
+MaskLab browser website.
 
-## Project Overview
+## Live Demo
 
-This project demonstrates how a pretrained deep learning model can be adapted for a specific image-classification task.
+https://masklab-live.vishnuyadav-venkates.chatgpt.site
 
-Instead of training a neural network from scratch, we use **MobileNetV2 pretrained on ImageNet** and add a small classification layer for two classes:
+Wait for “Model ready”, start the camera and allow camera access.
+You can also upload an image and save a prediction screenshot.
 
-* Mask
-* No Mask
+## Technologies
 
-The trained model is then integrated with **OpenCV** for real-time webcam prediction.
-
-## Technologies Used
-
-* Python
-* TensorFlow / Keras
-* MobileNetV2
-* OpenCV
-* NumPy
-* Matplotlib
-* Scikit-learn
-* Google Colab
-
-## Project Workflow
-
-```text
-Kaggle Dataset
-      ↓
-Dataset Cleaning & Preprocessing
-      ↓
-Train / Validation Split
-      ↓
-MobileNetV2 Transfer Learning
-      ↓
-Model Training
-      ↓
-Model Evaluation
-      ↓
-Accuracy & Loss Graphs
-      ↓
-Confusion Matrix
-      ↓
-OpenCV Webcam
-      ↓
-Real-Time Mask / No Mask Prediction
-```
-
-## Project Structure
-
-```text
-face-mask-detection/
-│
-├── dataset/
-│   └── README.md
-│
-├── src/
-│   ├── preprocess.py
-│   ├── train.py
-│   ├── evaluate.py
-│   └── webcam.py
-│
-├── notebooks/
-│   └── training.ipynb
-│
-├── models/
-│
-├── results/
-│   ├── accuracy.png
-│   ├── loss.png
-│   └── confusion_matrix.png
-│
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
+- Python 3.11
+- TensorFlow/Keras
+- MobileNetV2 pretrained on ImageNet
+- OpenCV
+- NumPy and Matplotlib
+- HTML, CSS, JavaScript and TensorFlow.js
+- BlazeFace for face detection in the browser
 
 ## Dataset
 
-The dataset is obtained from Kaggle.
+Source: https://www.kaggle.com/datasets/omkargurav/face-mask-dataset
 
-The original dataset is **not included in this GitHub repository** because of file size and dataset licensing considerations.
+- With mask: 3,725 images
+- Without mask: 3,828 images
+- Total: 7,553 images
+- Training/validation split: 80% / 20%
 
-Download the dataset from the Kaggle source provided in:
-
-```text
-dataset/README.md
-```
-
-After downloading, follow the preprocessing instructions to create the required training and validation folders.
-
-## Classes
-
-The model performs binary classification:
+Download and extract the images into:
 
 ```text
-1. Mask
-2. No Mask
+data/
+├── with_mask/
+└── without_mask/
 ```
+
+Dataset images are excluded from Git.
 
 ## Model
 
-We use **MobileNetV2 pretrained on ImageNet** as the base model.
+- Input: 160 × 160 RGB images
+- Pixel normalization included in the Keras model
+- Frozen MobileNetV2 feature extractor
+- Global average pooling, dropout and one sigmoid output
+- Output probability represents “No Mask”
 
-The basic architecture is:
+Reported best validation accuracy: **98.94%**.
 
-```text
-Input Image (224 × 224 × 3)
-          ↓
-MobileNetV2
-          ↓
-Global Average Pooling
-          ↓
-Dropout
-          ↓
-Dense Layer
-          ↓
-Mask / No Mask
-```
-
-Transfer learning allows us to obtain useful image features from a pretrained model without training a deep neural network completely from scratch.
-
-## Training
-
-The dataset is divided approximately into:
-
-* 80% Training
-* 20% Validation
-
-The images are resized to `224 × 224` during the TensorFlow preprocessing pipeline.
-
-Simple data augmentation is used to improve generalization.
-
-## Evaluation
-
-The model is evaluated using:
-
-* Validation accuracy
-* Training accuracy
-* Validation loss
-* Training loss
-* Confusion matrix
-* Precision
-* Recall
-* F1-score
-
-The generated graphs and evaluation results are stored in the `results/` directory.
-
-## Real-Time Webcam Demo
-
-After training, the saved model is connected to OpenCV.
-
-The webcam captures frames and the model predicts:
-
-```text
-MASK
-```
-
-or
-
-```text
-NO MASK
-```
-
-along with the prediction confidence.
-
-Press **Q** to close the webcam window.
+This is validation accuracy on dataset images, not a measurement of
+live webcam accuracy.
 
 ## Installation
 
-Install the required Python packages:
+From the repository root, using Python 3.11:
 
-```bash
-pip install -r requirements.txt
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-## Running the Project
+## Train the Model
 
-### 1. Prepare the dataset
-
-```bash
-python src/preprocess.py
+```powershell
+.\.venv\Scripts\python.exe src\train.py
 ```
 
-### 2. Train the model
+Outputs include:
 
-Training can be performed using Google Colab or locally if suitable hardware is available.
+- `models/mask_detector.keras`
+- `models/class_names.json`
+- `results/accuracy.png`
+- `results/loss.png`
+- `results/history.json`
+- `results/validation_metrics.json`
 
-### 3. Evaluate the model
+## OpenCV Webcam Demo
 
-```bash
-python src/evaluate.py
+```powershell
+.\.venv\Scripts\python.exe src\webcam.py
 ```
 
-### 4. Run the webcam demo
+Click the webcam window before using these keys:
 
-```bash
-python src/webcam.py
+- **S**: Save a screenshot
+- **Q**: Quit and release the camera
+
+## Run the Website Locally
+
+```powershell
+.\.venv\Scripts\python.exe -m http.server 8000 --directory web
 ```
 
-## Team Contributions
+Open http://localhost:8000 in Chrome or Edge.
 
-| Member   | Contribution                                      |
-| -------- | ------------------------------------------------- |
-| Member 1 | Dataset collection, cleaning and preprocessing    |
-| Member 2 | MobileNetV2 model development and training        |
-| Member 3 | Model evaluation, graphs and performance analysis |
-| Member 4 | OpenCV real-time webcam integration               |
+The browser uses the converted TensorFlow.js classifier and BlazeFace.
+Camera images are processed on your device.
 
-## Future Improvements
+## Training Plots
 
-Possible future improvements include:
+![Training and validation accuracy](results/accuracy.png)
+![Training and validation loss](results/loss.png)
 
-* Face detection before classification
-* Detection of multiple faces
-* Improved dataset diversity
-* Real-time bounding boxes
-* Mobile or web deployment
-* Improved performance under different lighting conditions
+## Limitations
 
-## Disclaimer
-
-This project is developed for educational and demonstration purposes.
+- Lighting, face angle and occlusion can affect predictions.
+- Face detection may miss covered faces.
+- OpenCV and the browser use different face detectors.
+- Confidence is a model estimate and does not guarantee correctness.
+- This project is an educational demonstration.
