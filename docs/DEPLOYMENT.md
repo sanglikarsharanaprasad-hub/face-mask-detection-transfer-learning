@@ -133,3 +133,15 @@ http://localhost:8000.
 
 These were manual functional checks, not an accuracy benchmark.
 Vercel deployment remains unverified.
+
+## Local browser verification
+
+Tested by Vishnu Yadav V on macOS on 7 October 2026 using
+http://localhost:8000.
+
+- Camera access and preview worked.
+- Predictions appeared for mask and no-mask examples.
+- The Stop Camera control worked.
+
+These were manual functional checks, not an accuracy benchmark.
+Vercel deployment remains unverified.
